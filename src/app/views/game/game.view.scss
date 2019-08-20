@@ -1,0 +1,55 @@
+@import '../../shared/style/utils/center';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.player-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease 0.2s;
+
+  &--one {
+    transform: rotate(180deg);
+    background: var(--player-one-color);
+  }
+
+  &--two {
+    background: var(--player-two-color);
+  }
+}
+
+.player-score {
+  font-weight: bold;
+  text-shadow: var(--text-shadow);
+}
+
+.player-wins {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(100%, 100%);
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 0.5rem 0 0 0;
+
+  &--one {
+    color: var(--player-one-color);
+  }
+
+  &--two {
+    color: var(--player-two-color);
+  }
+}
+
+.countdown {
+  @include center;
+  z-index: 1;
+  text-shadow: var(--text-shadow);
+}

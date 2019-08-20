@@ -1,0 +1,20 @@
+:root {
+  --player-one-color: #ff6c4e;
+  --player-two-color: #73bcff;
+  --background: linear-gradient(to top, var(--player-two-color) 50%, var(--player-one-color) 50%);
+
+  --font-color: #fff;
+  --font-size: 2vmax;
+  --font-family: Tahoma, Helvetica, Geneva, sans-serif;
+  
+  --button-color: #333333;
+  --button-background: #fff;
+  --button-shadow: -0.3rem 0.4rem 0 rgba(0, 0, 0, 0.1);
+
+  --text-shadow: -0.3rem 0.4rem 0 rgba(0, 0, 0, 0.1);
+  --icon-shadow: -0.3rem 0.6rem 0 rgba(0, 0, 0, 0.15);
+
+  --confetti-color-one: #d5424f;
+  --confetti-color-two: #faab5a;
+  --confetti-color-three: #7ebef5;
+}

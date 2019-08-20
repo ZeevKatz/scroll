@@ -1,0 +1,30 @@
+import { PlayerId } from '../../shared';
+export declare class GameView extends HTMLElement {
+    private static readonly WINNER_SCORE;
+    private static readonly START_SCORE;
+    private gameStarted;
+    private playerOneScore;
+    private playerTwoScore;
+    private $playerOneContainer;
+    private $playerTwoContainer;
+    private $playerOneScore;
+    private $playerTwoScore;
+    private $playerOneWins;
+    private $playerTwoWins;
+    private readonly gesture;
+    wins: Record<PlayerId, number>;
+    private readonly win;
+    readonly playerOneIsWinner: boolean;
+    readonly playerTwoIsWinner: boolean;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    private onWinsChanges;
+    private onStartCountdownDone;
+    private onPanMove;
+    private checkWinner;
+    private resetGame;
+    private normalizeScore;
+    private render;
+    private animatePlayerContainer;
+    private animateView;
+}

@@ -1,0 +1,47 @@
+@import '../../shared/style/animations/shake';
+@import '../../shared/style/utils/center';
+@import '../../shared/style/utils/fill';
+
+:host {
+  @include fill;
+  background: var(--background);
+}
+
+.content-container {
+  @include center;
+}
+
+.copyrights {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  padding: 1rem;
+  font-weight: 300;
+}
+
+.title {
+  white-space: nowrap;
+  margin: 0.5rem;
+  font-size: 6rem;
+  text-shadow: var(--text-shadow);
+}
+
+.play-button {
+  @include shake-animation;
+}
+
+.scroll-icon {
+  position: relative;
+  top: 1.25rem;
+  font-size: 7rem;
+  text-shadow: var(--icon-shadow);
+  animation: scroll-icon-animation 4s ease infinite;
+}
+
+@keyframes scroll-icon-animation {
+  0% {transform: translateY(25%) rotate(-75deg)}
+  5% {transform: translateY(-40%) rotate(-20deg)}
+  12.5% {transform: translateY(0) rotate(-20deg)}
+  90% {transform: rotate(-20deg)}
+  100% {transform: translateY(25%) rotate(-75deg)}
+}

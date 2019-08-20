@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  position: relative;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+
+  &--one {
+    background-color: var(--confetti-color-one);
+  }
+
+  &--two {
+    background-color: var(--confetti-color-two);
+  }
+
+  &--three {
+    background-color: var(--confetti-color-three);
+  }
+}

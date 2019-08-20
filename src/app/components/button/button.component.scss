@@ -1,0 +1,11 @@
+:host {
+  touch-action: manipulation;
+  display: inline-block;
+  background: var(--button-background);
+  color: var(--button-color);
+  padding: 1rem 2rem;
+  margin: 0.25rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  box-shadow: var(--button-shadow);
+}

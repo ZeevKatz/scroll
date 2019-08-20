@@ -1,0 +1,78 @@
+@import '../../shared/style/animations/shake';
+@import '../../shared/style/utils/fill';
+@import '../../shared/style/utils/center';
+
+.winner-container {
+  @include fill;
+  &.flip {
+    transform: rotate(180deg);
+  }
+}
+
+.background-container {
+  height: 0;
+
+  &.show {
+    height: 100%;
+  }
+
+  &--one {
+    background-color: var(--player-one-color);
+  }
+
+  &--two {
+    background-color: var(--player-two-color);
+  }
+}
+
+.stripped-background {
+  @include fill;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 1rem 1rem;
+  animation: stripped-background-animation 15s linear infinite;
+}
+
+.confetti {
+  @include fill;
+  z-index: 1;
+}
+
+.content {
+  @include center;
+}
+
+.cup-icon {
+  font-size: 7rem;
+  text-shadow: var(--icon-shadow);
+  animation: cup-icon-animation 4s 1s ease infinite;
+}
+
+.title {
+  margin: 0.5rem;
+  font-size: 4.5rem;
+  white-space: nowrap;
+  text-shadow: var(--text-shadow);
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.fight-again-button {
+  @include shake-animation;
+}
+
+@keyframes cup-icon-animation {
+  0% {transform: scale(1) translate(0, 0) rotate(0deg)}
+  5% {transform: scale(0.8) translate(0, 15%) rotate(-2.5deg)}
+  20% {transform: scale(1.2) translate(-10%, -20%) rotate(-10deg)}
+  25% {transform: scale(0.8) translate(0, 20%) rotate(2.5deg)}
+  40% {transform: scale(1.2) translate(10%, -20%) rotate(10deg)}
+  45% {transform: scale(1) translate(0, 0) rotate(0deg)}
+  100% {transform: scale(1) translate(0, 0) rotate(0deg)}
+}
+
+@keyframes stripped-background-animation {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
