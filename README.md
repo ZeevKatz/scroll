@@ -1,5 +1,5 @@
-## 👆 Scroll!
-![thumbnail](./press/game.gif =250x)
+### 👆 Scroll!
+![thumbnail](./press/game.gif)
  
 ---
 **Scroll!** is an fight game for mobile that you can play in your browser with your friends face-2-face.
