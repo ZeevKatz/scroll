@@ -129,7 +129,7 @@ export class GameView extends HTMLElement {
       ease: Easing.easeInOutCubic,
       to: {
         height: `${playerScore}%`,
-        fontSize: `${playerScore * 0.15}rem`
+        fontSize: `${playerScore * 0.125}rem`
       }
     });
   }
