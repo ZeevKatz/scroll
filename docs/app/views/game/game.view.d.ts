@@ -2,6 +2,10 @@ import { PlayerId } from '../../shared';
 export declare class GameView extends HTMLElement {
     private static readonly WINNER_SCORE;
     private static readonly START_SCORE;
+    private static readonly VELOCITY_TO_SCORE_FACTOR;
+    private static readonly MAX_SCORE;
+    private static readonly THROTTLE_LIMIT;
+    private static velocityToScore;
     private gameStarted;
     private playerOneScore;
     private playerTwoScore;
@@ -11,7 +15,8 @@ export declare class GameView extends HTMLElement {
     private $playerTwoScore;
     private $playerOneWins;
     private $playerTwoWins;
-    private readonly gesture;
+    private readonly playerOneGesture;
+    private readonly playerTwoGesture;
     wins: Record<PlayerId, number>;
     private readonly win;
     readonly playerOneIsWinner: boolean;
@@ -20,7 +25,7 @@ export declare class GameView extends HTMLElement {
     disconnectedCallback(): void;
     private onWinsChanges;
     private onStartCountdownDone;
-    private onPanMove;
+    private updateScores;
     private checkWinner;
     private resetGame;
     private normalizeScore;
