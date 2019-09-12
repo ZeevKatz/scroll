@@ -10,9 +10,9 @@ import { throttle, animate, Easing, PlayerId, TinyGesture } from '../../shared';
 export class GameView extends HTMLElement {
   private static readonly WINNER_SCORE = 100;
   private static readonly START_SCORE = 50;
-  private static readonly VELOCITY_TO_SCORE_FACTOR = 0.3;
+  private static readonly VELOCITY_TO_SCORE_FACTOR = 0.25;
   private static readonly MAX_SCORE = 10;
-  private static readonly THROTTLE_LIMIT = 50;
+  private static readonly THROTTLE_LIMIT = 65;
   
   private static velocityToScore(velocity: number) {
     return Math.min(Math.abs(velocity) * this.VELOCITY_TO_SCORE_FACTOR, this.MAX_SCORE);
