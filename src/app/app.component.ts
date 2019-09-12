@@ -20,7 +20,6 @@ export class AppComponent extends HTMLElement {
   };
 
   connectedCallback() {
-    document.addEventListener('touchmove', event => event.preventDefault(), false);
     this.showHomeView();
   }
 
@@ -77,14 +76,18 @@ export class AppComponent extends HTMLElement {
     this.players.two.resetWins();
     this.showHomeView();
   }
-
+  
+  @Listen('touchmove')
+  private onTouchMove(event: Event) {
+    event.preventDefault();
+  }
+  
   @Listen('touchstart')
   @Listen('mousedown')
-  @Listen('gesturestart')
   private onTouchStart(event: Event) {
     if (this.doubleTouchStartTimestamp + 500 > Date.now()) {
         event.preventDefault();
-    };
+    }
     this.doubleTouchStartTimestamp = Date.now();
   }
 }

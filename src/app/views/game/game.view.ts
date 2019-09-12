@@ -1,6 +1,6 @@
-import { CustomElement, Listen, DispatchEmitter, Dispatch, Prop, Watch } from 'custom-elements-ts';
+import { CustomElement, Dispatch, DispatchEmitter, Listen, Prop, Watch } from 'custom-elements-ts';
 
-import { TinyGesture, animate, Easing, PlayerId } from '../../shared';
+import { throttle, animate, Easing, PlayerId, TinyGesture } from '../../shared';
 
 @CustomElement({
   tag: 'game-view',
@@ -10,6 +10,14 @@ import { TinyGesture, animate, Easing, PlayerId } from '../../shared';
 export class GameView extends HTMLElement {
   private static readonly WINNER_SCORE = 100;
   private static readonly START_SCORE = 50;
+  private static readonly VELOCITY_TO_SCORE_FACTOR = 0.5;
+  private static readonly MAX_SCORE = 15;
+  private static readonly THROTTLE_LIMIT = 75;
+  
+  private static velocityToScore(velocity: number) {
+    return Math.min(Math.abs(velocity) * this.VELOCITY_TO_SCORE_FACTOR, this.MAX_SCORE);
+  }
+  
   private gameStarted: boolean;
 
   private playerOneScore: number;
@@ -22,10 +30,9 @@ export class GameView extends HTMLElement {
   private $playerOneWins: HTMLSpanElement;
   private $playerTwoWins: HTMLSpanElement;
 
-  private readonly gesture = new TinyGesture(this, {
-    disregardVelocityThreshold: () => 0,
-    threshold: () => 0,
-  });
+  private readonly playerOneGesture = new TinyGesture(this);
+  
+  private readonly playerTwoGesture = new TinyGesture(this);
 
   @Prop()
   wins: Record<PlayerId, number>;
@@ -49,12 +56,27 @@ export class GameView extends HTMLElement {
     this.$playerOneWins = this.shadowRoot.querySelector('.player-wins--one');
     this.$playerTwoWins = this.shadowRoot.querySelector('.player-wins--two');
     
-    this.gesture.on('panmove', () => this.onPanMove(this.gesture.touchMoveY, this.gesture.velocityY));
+    this.playerOneGesture.on('panmove', throttle(() => {
+      if (this.gameStarted && this.playerOneGesture.velocityY > 0) {
+        const score = GameView.velocityToScore(this.playerOneGesture.velocityY);
+        this.updateScores(score);
+      }
+    }, GameView.THROTTLE_LIMIT));
+    
+    this.playerTwoGesture.on('panmove', throttle(() => {
+      if (this.gameStarted && this.playerTwoGesture.velocityY < 0) {
+        const score = GameView.velocityToScore(this.playerTwoGesture.velocityY);
+        this.updateScores(-score);
+      }
+    }, GameView.THROTTLE_LIMIT));
   }
 
   disconnectedCallback() {
-    if (this.gesture) {
-      this.gesture.destroy();
+    if (this.playerOneGesture) {
+      this.playerOneGesture.destroy();
+    }
+    if (this.playerTwoGesture) {
+      this.playerTwoGesture.destroy();
     }
   }
 
@@ -74,23 +96,12 @@ export class GameView extends HTMLElement {
     await this.animateView('enter');
   }
 
-  private async onPanMove(distance: number, velocity: number) {
+  private async updateScores(score: number) {
     if (this.gameStarted) {
-      velocity = Math.abs(velocity);
-      const normalizedVelocity = Math.min(velocity, 25);
-      const score = normalizedVelocity * 0.05;
-      if (distance > 0) {
-        const normalizedPlayerOneScore = this.normalizeScore(this.playerOneScore + score);
-        const normalizedPlayerTwoScore = this.normalizeScore(this.playerTwoScore + (this.playerOneScore - normalizedPlayerOneScore));
-        this.playerOneScore = normalizedPlayerOneScore;
-        this.playerTwoScore = normalizedPlayerTwoScore;
-      } else {
-        const normalizedPlayerTwoScore = this.normalizeScore(this.playerTwoScore + score);
-        const normalizedPlayerOneScore = this.normalizeScore(this.playerOneScore + (this.playerTwoScore - normalizedPlayerTwoScore));
-        this.playerTwoScore = normalizedPlayerTwoScore;
-        this.playerOneScore = normalizedPlayerOneScore;
-      }
-
+      const normalizedPlayerOneScore = this.normalizeScore(this.playerOneScore + score);
+      const normalizedPlayerTwoScore = this.normalizeScore(this.playerTwoScore + (this.playerOneScore - normalizedPlayerOneScore));
+      this.playerOneScore = normalizedPlayerOneScore;
+      this.playerTwoScore = normalizedPlayerTwoScore;
       this.render();
       this.checkWinner();
     }

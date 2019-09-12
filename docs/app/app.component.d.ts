@@ -11,5 +11,6 @@ export declare class AppComponent extends HTMLElement {
     private onWin;
     private onFightAgain;
     private onQuit;
+    private onTouchMove;
     private onTouchStart;
 }
