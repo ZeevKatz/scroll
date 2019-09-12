@@ -10,14 +10,15 @@ import { throttle, animate, Easing, PlayerId, TinyGesture } from '../../shared';
 export class GameView extends HTMLElement {
   private static readonly WINNER_SCORE = 100;
   private static readonly START_SCORE = 50;
-  private static readonly VELOCITY_TO_SCORE_FACTOR = 0.5;
-  private static readonly MAX_SCORE = 15;
-  private static readonly THROTTLE_LIMIT = 75;
+  private static readonly VELOCITY_TO_SCORE_FACTOR = 0.3;
+  private static readonly MAX_SCORE = 10;
+  private static readonly THROTTLE_LIMIT = 50;
   
   private static velocityToScore(velocity: number) {
     return Math.min(Math.abs(velocity) * this.VELOCITY_TO_SCORE_FACTOR, this.MAX_SCORE);
   }
   
+  private readonly gesture = new TinyGesture(this);
   private gameStarted: boolean;
 
   private playerOneScore: number;
@@ -29,11 +30,7 @@ export class GameView extends HTMLElement {
   private $playerTwoScore: HTMLSpanElement;
   private $playerOneWins: HTMLSpanElement;
   private $playerTwoWins: HTMLSpanElement;
-
-  private readonly playerOneGesture = new TinyGesture(this);
   
-  private readonly playerTwoGesture = new TinyGesture(this);
-
   @Prop()
   wins: Record<PlayerId, number>;
 
@@ -56,27 +53,18 @@ export class GameView extends HTMLElement {
     this.$playerOneWins = this.shadowRoot.querySelector('.player-wins--one');
     this.$playerTwoWins = this.shadowRoot.querySelector('.player-wins--two');
     
-    this.playerOneGesture.on('panmove', throttle(() => {
-      if (this.gameStarted && this.playerOneGesture.velocityY > 0) {
-        const score = GameView.velocityToScore(this.playerOneGesture.velocityY);
-        this.updateScores(score);
+    this.gesture.on('panmove', throttle(() => {
+      if (!this.gameStarted) {
+        return;
       }
-    }, GameView.THROTTLE_LIMIT));
-    
-    this.playerTwoGesture.on('panmove', throttle(() => {
-      if (this.gameStarted && this.playerTwoGesture.velocityY < 0) {
-        const score = GameView.velocityToScore(this.playerTwoGesture.velocityY);
-        this.updateScores(-score);
-      }
+      const score = GameView.velocityToScore(this.gesture.velocityY);
+      this.updateScores(this.gesture.velocityY > 0 ? score : -score);
     }, GameView.THROTTLE_LIMIT));
   }
 
   disconnectedCallback() {
-    if (this.playerOneGesture) {
-      this.playerOneGesture.destroy();
-    }
-    if (this.playerTwoGesture) {
-      this.playerTwoGesture.destroy();
+    if (this.gesture) {
+      this.gesture.destroy();
     }
   }
 
@@ -94,6 +82,10 @@ export class GameView extends HTMLElement {
     this.resetGame();
     this.render();
     await this.animateView('enter');
+  }
+  
+  private onPanMove() {
+  
   }
 
   private async updateScores(score: number) {

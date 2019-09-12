@@ -6,6 +6,7 @@ export declare class GameView extends HTMLElement {
     private static readonly MAX_SCORE;
     private static readonly THROTTLE_LIMIT;
     private static velocityToScore;
+    private readonly gesture;
     private gameStarted;
     private playerOneScore;
     private playerTwoScore;
@@ -15,8 +16,6 @@ export declare class GameView extends HTMLElement {
     private $playerTwoScore;
     private $playerOneWins;
     private $playerTwoWins;
-    private readonly playerOneGesture;
-    private readonly playerTwoGesture;
     wins: Record<PlayerId, number>;
     private readonly win;
     readonly playerOneIsWinner: boolean;
@@ -25,6 +24,7 @@ export declare class GameView extends HTMLElement {
     disconnectedCallback(): void;
     private onWinsChanges;
     private onStartCountdownDone;
+    private onPanMove;
     private updateScores;
     private checkWinner;
     private resetGame;
