@@ -12,7 +12,7 @@
   <img src="press/game-preview.gif">
   <br>
   <br>
-  <span>All the graphics are procedurally generated to fit the game within <b>13kb</b>, 
+  <span>All the graphics are generated to fit the game within <b>13kb</b>, 
   <br>
   as the game was created for the <a href="https://js13kgames.com" target="_blank"><b>JS13K game competition</b></a></span>.
   <br>
