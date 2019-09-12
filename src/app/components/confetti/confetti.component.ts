@@ -71,7 +71,7 @@ export class ConfettiComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.fireConfetti();
+    setTimeout(() => this.fireConfetti());
   }
 
   private fireConfetti() {
