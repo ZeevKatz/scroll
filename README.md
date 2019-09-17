@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="press/logo.png" width="40%">
+  <img src="press/logo.png">
   <br>
   <br>
   <b>Scroll!</b> is a Face to Face fighting game for mobile that you can play in your browser.
@@ -9,10 +9,10 @@
   🕹 <a href="https://zeevkatz.github.io/scroll" target="_blank"><b>Play now!</b></a>
   <br>
   <br>
-  <img src="press/game-preview.gif" width="35%">
+  <img src="press/game-preview.gif">
   <br>
   <br>
-  <span>All the graphics are procedurally generated to fit the game within <b>13kb</b>, 
+  <span>All the graphics are procedurally generated to fit the game within <b>13kB</b>, 
   <br>
   as the game was created for the <a href="https://js13kgames.com" target="_blank"><b>JS13K game competition</b></a></span>.
   <br>
