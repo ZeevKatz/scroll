@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="press/logo.png">
+  <img src="press/logo.png" width="400px">
   <br>
   <br>
   <b>Scroll!</b> is a Face to Face fighting game for mobile that you can play in your browser.
