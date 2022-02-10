@@ -41,7 +41,7 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^3.0.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
